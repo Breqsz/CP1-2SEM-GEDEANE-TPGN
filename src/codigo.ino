@@ -1,5 +1,3 @@
-
-
 #define CUSTOM_SETTINGS
 #define INCLUDE_GAMEPAD_MODULE
 #include <DabbleESP32.h>
@@ -10,21 +8,18 @@
 #define IN4 19
 
 #define ENA 5
-#define ENB 23 
-
+#define ENB 23
 
 #define TRIG_PIN 25
 #define ECHO_PIN 26
 
-
-#define DISTANCIA_SEGURANCA 20 // centímetros
+#define DISTANCIA_SEGURANCA 20
 
 bool movendoParaFrente = false;
 
 void setup()
 {
     Serial.begin(115200);
-
 
     pinMode(IN1, OUTPUT);
     pinMode(IN2, OUTPUT);
@@ -34,10 +29,8 @@ void setup()
     pinMode(ENA, OUTPUT);
     pinMode(ENB, OUTPUT);
 
-
     pinMode(TRIG_PIN, OUTPUT);
     pinMode(ECHO_PIN, INPUT);
-
 
     digitalWrite(ENA, HIGH);
     digitalWrite(ENB, HIGH);
@@ -57,7 +50,6 @@ void loop()
     Serial.print(distancia);
     Serial.println(" cm");
 
-
     if (movendoParaFrente &&
         distancia > 0 &&
         distancia <= DISTANCIA_SEGURANCA)
@@ -69,9 +61,6 @@ void loop()
         delay(50);
         return;
     }
-
-
-
 
     if (GamePad.isUpPressed())
     {
@@ -108,10 +97,6 @@ void loop()
     delay(30);
 }
 
-
-// SENSOR ULTRASSÔNICO
-
-
 float medirDistancia()
 {
     // Garante pulso LOW antes da medição
@@ -124,27 +109,17 @@ float medirDistancia()
 
     digitalWrite(TRIG_PIN, LOW);
 
-    // Aguarda retorno do sinal
-    // Timeout de 30 ms para evitar travamento
     long duracao = pulseIn(ECHO_PIN, HIGH, 30000);
 
-    // Caso nenhuma resposta seja recebida
     if (duracao == 0)
     {
         return -1;
     }
 
-    // Velocidade do som:
-    // distancia = tempo * 0.0343 / 2
-
     float distancia = duracao * 0.0343 / 2;
 
     return distancia;
 }
-
-// ========================================================
-// MOVIMENTAÇÃO
-// ========================================================
 
 void moveForward()
 {
