@@ -28,7 +28,7 @@ justificadas em [`Decisoes.md`](Decisoes.md).
 | ID | Requisito | Status final |
 | :--- | :--- | :---: |
 | RNF01 | Alimentação autônoma por bateria, sem cabo durante o uso | ✅ 2x 18650 em série com chave ON/OFF |
-| RNF02 | Todos os componentes devem caber e ficar fixos no chassi (dimensões em [`../hardware/README.md`](../hardware/README.md)) | `[CONFIRMAR]` |
+| RNF02 | Todos os componentes devem caber e ficar fixos no chassi (dimensões em [`../hardware/README.md`](../hardware/README.md)) |✅ |
 | RNF03 | O carrinho deve permanecer estável em movimento e em curvas | ✅` |
 | RNF04 | O comando do app deve refletir no carrinho sem atraso perceptível | ✅ |
 | RNF05 | O carrinho deve ter carenagem que proteja a eletrônica | ✅|
