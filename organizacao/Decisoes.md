@@ -88,21 +88,9 @@ RFID, display OLED, GPS, câmera, buzzer, Wi-Fi e modo autônomo completo foram
 conscientemente deixados de fora do escopo, para manter o foco nos requisitos
 obrigatórios do Check Point dentro do tempo disponível.
 
-## 7. Chassi `[PREENCHER]`
+## 7. Chassi `**kit chassi 2WD comercial**`
 
-> Registrar aqui qual chassi foi usado na versão final. A planilha de custos
-> prevê um **kit chassi 2WD comercial**, e a pasta `cad/` tem um **chassi
-> próprio** modelado no Fusion 360. Escolher o caso que se aplica:
 >
-> - **Chassi próprio impresso:** material, impressora, tempo de impressão,
->   ajustes de tolerância e o que mudou entre versões.
-> - **Kit comercial:** por que foi escolhido (ex.: prazo, rigidez) e quais
->   adaptações foram feitas (furos novos, suportes impressos, posição do
->   sensor, fixação da bateria etc.). O modelo em `cad/` passa a ser
->   documentado como estudo de layout/proposta inicial.
+> -**kit chassi 2WD comercial**
+> - **Kit comercial:** Escolhido pela praticidade e eficiencia no desenvolvimento do projeto. 
 
-## 8. Carenagem `[PREENCHER]`
-
-> Material escolhido (a planilha prevê papelão/papel cartão reaproveitado),
-> como foi fixada, abertura para o sensor, acesso à chave da bateria e
-> eventuais versões/ajustes.
