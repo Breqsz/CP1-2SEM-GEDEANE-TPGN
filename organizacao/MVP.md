@@ -51,4 +51,4 @@ Além do MVP, o produto final precisa ter:
 | MVP (andar e virar com ESP32 + ponte H + bateria) | ✅ Atingido |
 | Controle remoto sem fio | ✅ Bluetooth (Dabble) |
 | Sensor com função real | ✅ Parada automática a ≤ 20 cm |
-| Produto final com carenagem | `[CONFIRMAR]` |
+| Produto final com carenagem | ✅ Atingido |
