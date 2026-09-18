@@ -1,6 +1,18 @@
 # Software — Carrinho-Robô
 
-Código-fonte: [`codigo.ino`](codigo.ino) (Arduino IDE, placa ESP32).
+Código-fonte: [`codigo.ino`](codigo.ino) (Arduino IDE, placa ESP32) — **versão final (v2)**.
+
+Versão anterior, mantida para registrar a evolução:
+[`versoes/codigo_v1.ino`](versoes/codigo_v1.ino). As diferenças entre as
+versões estão em [`../organizacao/Decisoes.md`](../organizacao/Decisoes.md).
+
+## Como gravar no ESP32
+
+1. Instalar o suporte a placas ESP32 na Arduino IDE (Gerenciador de Placas → "esp32");
+2. Instalar a biblioteca **DabbleESP32** (Gerenciador de Bibliotecas);
+3. Selecionar a placa **ESP32 Dev Module** e a porta COM correta;
+4. Abrir `codigo.ino` e fazer o upload;
+5. Opcional: abrir o Monitor Serial em **115200** para ver as distâncias lidas.
 
 ## Bibliotecas utilizadas
 

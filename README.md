@@ -9,10 +9,10 @@
 | :--- | :---: |
 | Rodrigo Brasileiro | RM98952 |
 | Guilherme Rocha | RM97974 |
-| Nikolas Rodrigues | `[PREENCHER RM]` |
+| Nikolas Rodrigues | RM551566 |
 | Thiago Jardim | RM551624 |
 
-> ⚠️ RM do Nikolas Rodrigues ainda pendente — atualizar antes da entrega final.
+
 
 ## 🎯 Objetivo
 
