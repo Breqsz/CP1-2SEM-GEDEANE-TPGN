@@ -39,10 +39,9 @@ Esse ponto corresponde às etapas "Teste de motores" + "Software básico" da
 
 Além do MVP, o produto final precisa ter:
 
-- [ ] Carenagem definitiva `[CONFIRMAR material]`;
 - [x] Sensor ultrassônico integrado para detecção de obstáculos;
 - [x] Forma de controle definida (Bluetooth via app Dabble);
-- [ ] Testes finais de estabilidade, autonomia de bateria e acabamento
+- [x] Testes finais de estabilidade, autonomia de bateria e acabamento
       (ver [`../testes/TESTES.md`](../testes/TESTES.md)).
 
 ## Resultado
