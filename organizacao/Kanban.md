@@ -34,9 +34,10 @@ Quadro Kanban baseado no [`Backlog.md`](Backlog.md), seguindo a ordem definida e
 - Controle via Wi-Fi (Rodrigo) — substituído por Bluetooth
 
 ### Em Andamento
-- `[CONFIRMAR: vazio ou carenagem]`
+
 
 ### Concluído (Done)
+- Adicionar LED Vermelho de aviso de 20cm de distância (Guilherme)
 - Medir componentes (Rodrigo)
 - Desenho 3D do chassi (Guilherme)
 - Teste de encaixes (Nikolas)
@@ -48,5 +49,5 @@ Quadro Kanban baseado no [`Backlog.md`](Backlog.md), seguindo a ordem definida e
 - Controle via Bluetooth — app Dabble (Rodrigo)
 - Sensor ultrassônico e parada automática (Nikolas / Guilherme)
 - Roda boba (Nikolas)
-- Carenagem final (Thiago) `[CONFIRMAR]`
+- Carenagem final (Thiago)
 - Documentação final (Thiago)
