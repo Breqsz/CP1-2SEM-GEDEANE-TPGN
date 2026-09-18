@@ -20,8 +20,8 @@ justificadas em [`Decisoes.md`](Decisoes.md).
 | RF06 | O carrinho deve medir a distância até obstáculos à frente | Should | ✅ Atendido | `medirDistancia()` com HC-SR04 |
 | RF07 | O carrinho deve bloquear o avanço ao detectar obstáculo a ≤ 20 cm | Should | ✅ Atendido | Trava `DISTANCIA_SEGURANCA` no `loop()` |
 | RF08 | Controle de velocidade dos motores (PWM) | Could | ❌ Não implementado | Melhoria futura |
-| RF09 | LEDs indicadores de status | Could | ❌ Não implementado | Melhoria futura |
-| RF10 | Desvio automático de obstáculos (modo autônomo) | Won't | ❌ Fora do escopo | — |
+| RF09 | LEDs indicadores de status | Could | Must | ✅ Atendido | — |
+| RF10 | Desvio automático de obstáculos (modo autônomo) | Must | ✅ Atendido | — |
 
 ## 2. Requisitos não funcionais (RNF)
 
@@ -29,9 +29,9 @@ justificadas em [`Decisoes.md`](Decisoes.md).
 | :--- | :--- | :---: |
 | RNF01 | Alimentação autônoma por bateria, sem cabo durante o uso | ✅ 2x 18650 em série com chave ON/OFF |
 | RNF02 | Todos os componentes devem caber e ficar fixos no chassi (dimensões em [`../hardware/README.md`](../hardware/README.md)) | `[CONFIRMAR]` |
-| RNF03 | O carrinho deve permanecer estável em movimento e em curvas (roda boba de apoio) | `[CONFIRMAR após teste]` |
-| RNF04 | O comando do app deve refletir no carrinho sem atraso perceptível | `[CONFIRMAR após teste]` |
-| RNF05 | O carrinho deve ter carenagem que proteja a eletrônica | `[CONFIRMAR]` |
+| RNF03 | O carrinho deve permanecer estável em movimento e em curvas | ✅` |
+| RNF04 | O comando do app deve refletir no carrinho sem atraso perceptível | ✅ |
+| RNF05 | O carrinho deve ter carenagem que proteja a eletrônica | ✅|
 | RNF06 | Custo total compatível com um projeto acadêmico (≈ R$ 235, ver [`Planilha_Custos_Carrinho.xlsx`](Planilha_Custos_Carrinho.xlsx)) | ✅ |
 | RNF07 | Código-fonte organizado, comentado e versionado no GitHub | ✅ |
 
