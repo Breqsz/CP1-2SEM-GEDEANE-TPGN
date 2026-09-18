@@ -56,7 +56,6 @@ projeto. A justificativa de cada mudança está em [`Decisoes.md`](Decisoes.md).
 | Sensor ultrassônico | Should | Should | ✅ Entregue | — |
 | Parada automática por obstáculo | Should | Should | ✅ Entregue | — |
 | Roda boba (caster) | Could | Could | ✅ Entregue | Necessária para apoiar o chassi de 2 rodas |
-| Carenagem final | Could | Could | `[CONFIRMAR]` | `[PREENCHER material usado]` |
 | LEDs indicadores | Could | Could | ❌ Não entregue | Priorizado o sensor |
 | Controle de velocidade (PWM) | — | **Could** (novo) | ❌ Não entregue | Identificado durante o desenvolvimento (Decisão 4) |
 | RFID, OLED, GPS, câmera, buzzer, modo autônomo | Won't | Won't | ❌ Fora do escopo | — |
