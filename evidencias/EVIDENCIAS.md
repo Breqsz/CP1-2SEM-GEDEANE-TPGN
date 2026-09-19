@@ -6,13 +6,13 @@
 
 ## 1. Fotos do carrinho finalizado
 
-![Texto alternativo da imagem](evidencias/carrinho-finalizado.jpg)
+![Texto alternativo da imagem](./carrinho-finalizado.jpg)
 
 [`README.md`](../README.md) principal, na seção "Carrinho finalizado".
 
 ## 2. Vídeo(s) de funcionamento
 
-![Texto alternativo da imagem](evidencias/Entrega_Final_Carrinho.mp4)
+![Texto alternativo da imagem](./Entrega_Final_Carrinho.mp4)
 
 - [ ] Carrinho se movendo para frente e para trás;
 - [ ] Carrinho fazendo curvas para os dois lados;
