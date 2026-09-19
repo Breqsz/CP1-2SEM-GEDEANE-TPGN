@@ -36,8 +36,7 @@ contando ainda com um **sensor ultrassônico** para detecção de obstáculos.
 
 ## 🖼️ Carrinho finalizado
 
-> `[PREENCHER]` — inserir aqui uma foto do carrinho-robô montado e finalizado
-> (com carenagem), por exemplo `evidencias/carrinho-finalizado.jpg`.
+> `evidencias/carrinho-finalizado.jpg`.
 
 ## 📁 Organização do repositório
 
