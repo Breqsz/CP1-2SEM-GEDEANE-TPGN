@@ -6,15 +6,13 @@
 
 ## 1. Fotos do carrinho finalizado
 
-`[PREENCHER]`: adicionar nesta pasta ao menos 2–3 fotos do carrinho já
-montado, com carenagem, em diferentes ângulos (ex.: `foto-frontal.jpg`,
-`foto-lateral.jpg`, `foto-superior.jpg`). Usar uma delas também no
+![Texto alternativo da imagem](evidencias/carrinho-finalizado.jpg)
+
 [`README.md`](../README.md) principal, na seção "Carrinho finalizado".
 
 ## 2. Vídeo(s) de funcionamento
 
-`[PREENCHER]`: gravar e disponibilizar (upload no repositório se o arquivo
-for pequeno, ou link do YouTube/Google Drive não listado) vídeos mostrando:
+![Texto alternativo da imagem](evidencias/Entrega_Final_Carrinho.mp4)
 
 - [ ] Carrinho se movendo para frente e para trás;
 - [ ] Carrinho fazendo curvas para os dois lados;
@@ -37,7 +35,6 @@ obstáculo e parando automaticamente (sem intervenção do usuário) ao chegar
 a ~20 cm de distância, evidenciando a trava de segurança implementada em
 `src/codigo.ino` (ver explicação em [`../src/README.md`](../src/README.md)).
 
-Link do vídeo: `[PREENCHER]`
 
 ## 5. Instruções básicas de utilização
 
@@ -51,13 +48,4 @@ Link do vídeo: `[PREENCHER]`
    - **Baixo**: recuar;
    - **Esquerda/Direita**: virar;
    - Soltar os botões: o carrinho para.
-5. Para recarregar/trocar a bateria: `[PREENCHER]` descrever o
-   procedimento (ex.: acesso pela carenagem, tipo de bateria).
 
-## Checklist de preenchimento antes da entrega
-
-- [ ] Fotos do carrinho finalizado adicionadas
-- [ ] Vídeo de movimentação adicionado/linkado
-- [ ] Vídeo de controle remoto adicionado/linkado
-- [ ] Vídeo de demonstração do sensor adicionado/linkado
-- [ ] Instruções de uso revisadas pela equipe
