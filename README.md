@@ -36,7 +36,7 @@ contando ainda com um **sensor ultrassônico** para detecção de obstáculos.
 
 ## 🖼️ Carrinho finalizado
 
-![Carrinho](.evidencias/carrinho-finalizado.jpg)
+![Carrinho](evidencias/carrinho-finalizado.jpg)
 
 ## 📁 Organização do repositório
 
