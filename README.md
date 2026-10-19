@@ -14,6 +14,13 @@
 
 
 
+## 🧠 Check Point 2 — TinyML
+
+A evolução do carrinho para **TinyML** (coleta de dados com o HC-SR04,
+treinamento no Edge Impulse e modelo embarcado no ESP32-S3 controlando o
+carrinho) está na pasta **[`cp2/`](cp2/README.md)**. O conteúdo abaixo é a
+documentação original do Check Point 1.
+
 ## 🎯 Objetivo
 
 Projetar, fabricar e programar um **carrinho-robô** capaz de se locomover de
@@ -58,6 +65,7 @@ contando ainda com um **sensor ultrassônico** para detecção de obstáculos.
 | [`organizacao/`](organizacao/) | Requisitos, MoSCoW, MVP, backlog, kanban, dependências, planilha de custos e decisões de projeto |
 | [`testes/`](testes/TESTES.md) | Testes realizados, problemas encontrados e correções |
 | [`evidencias/`](evidencias/EVIDENCIAS.md) | Fotos finais, vídeos de demonstração e instruções de uso |
+| [`cp2/`](cp2/README.md) | **Check Point 2:** dataset, Edge Impulse e código do carrinho com TinyML |
 
 ## 🚀 Como usar
 
