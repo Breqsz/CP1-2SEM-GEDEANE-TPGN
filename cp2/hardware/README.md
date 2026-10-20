@@ -14,8 +14,7 @@ são os mesmos do CP1.
 | Motores | 2x motor DC com redução | Tração diferencial |
 | Sensor | HC-SR04 | Fonte dos dados do dataset TinyML |
 | Divisor de tensão | Resistores 1 kΩ + 2 kΩ | Baixa o ECHO de 5 V para 3,3 V |
-| LED de alerta | LED vermelho + resistor 220 Ω | Indica a classe "perto" |
-| Buzzer (opcional) | Buzzer ativo | Alerta sonoro |
+| Semáforo | LEDs verde, amarelo e vermelho + 3 resistores 220 Ω | Indica a classe do modelo (longe / medio / perto) |
 | LED RGB | Integrado à placa (GPIO 48) | Mostra a classe do modelo por cor |
 | Capacitor (recomendado) | 470–1000 µF | Evita reset do ESP32 na partida dos motores |
 | Bateria | 2x 18650 em série (8,4 V) | Alimenta o L298N |
@@ -34,8 +33,9 @@ portas USB para baixo), em sequência: `3V3, 3V3, RST, 4, 5, 6, 7, 15, 16,
 | IN4 | 7 | L298N — motor direito |
 | TRIG | 15 | HC-SR04 TRIG (direto) |
 | ECHO | 16 | HC-SR04 ECHO **via divisor de tensão** |
-| LED | 17 | Resistor 220 Ω → LED → GND |
-| Buzzer | 18 | (+) do buzzer ativo; (−) no GND |
+| LED vermelho | 17 | Resistor 220 Ω → LED → GND (classe `perto`) |
+| LED amarelo | 18 | Resistor 220 Ω → LED → GND (classe `medio`) |
+| LED verde | 8 | Resistor 220 Ω → LED → GND (classe `longe`) |
 | LED RGB | 48 | Integrado (em placas v1.1 é o GPIO 38) |
 
 ### Divisor de tensão do ECHO
@@ -97,7 +97,8 @@ OUT1/OUT2 → motor esquerdo | OUT3/OUT4 → motor direito
   │  GPIO 15 ───────► TRIG ┐            │
   │  GPIO 16 ◄─ divisor ◄─ ECHO HC-SR04 │
   │  GPIO 17 ───────► LED vermelho      │
-  │  GPIO 18 ───────► Buzzer            │
+  │  GPIO 18 ───────► LED amarelo       │
+  │  GPIO 8  ───────► LED verde         │
   │  GPIO 48 (RGB integrado)            │
   └─────────────────────────────────────┘
 ```
@@ -129,4 +130,4 @@ pela classificação do modelo TinyML.
 
 Sketch de teste: [`../testes/teste_hardware/teste_hardware.ino`](../testes/teste_hardware/teste_hardware.ino).
 Ordem recomendada: placa sozinha no USB → motores com as rodas suspensas →
-sensor (conferir com régua) → LED/buzzer → tudo na bateria.
+sensor (conferir com régua) → LEDs → tudo na bateria.
