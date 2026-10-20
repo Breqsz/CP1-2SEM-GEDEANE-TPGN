@@ -38,15 +38,15 @@ const float DISTANCIA_MIN = 2.0;              // cm: limite inferior do sensor
 const int   JANELA_MEDIA  = 5;                // leituras na média móvel
 const unsigned long INTERVALO_AMOSTRA = 100;  // ms entre inferências
 
-// Velocidades (0 a 255). Abaixo de ~120 o motor não vence o atrito.
-const int VEL_NORMAL  = 160;
-const int VEL_DEVAGAR = 125;
-const int VEL_MANOBRA = 170;
+// Velocidades (0 a 255). Se o motor só zumbir sem girar, aumentar o valor.
+const int VEL_NORMAL  = 85;
+const int VEL_DEVAGAR = 55;
+const int VEL_MANOBRA = 100;
 
 // Manobra de desvio (classe "perto")
 const unsigned long TEMPO_PARADA = 200;  // ms parado antes da ré
-const unsigned long TEMPO_RE     = 600;  // ms de ré
-const unsigned long TEMPO_GIRO   = 550;  // ms girando para a direita
+const unsigned long TEMPO_RE     = 700;  // ms de ré
+const unsigned long TEMPO_GIRO   = 250;  // ms girando para a direita (~90°)
 
 // Confiança mínima para aceitar a classe; abaixo disso mantém a anterior
 const float CONFIANCA_MINIMA = 0.60;
