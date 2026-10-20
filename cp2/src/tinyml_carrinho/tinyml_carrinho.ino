@@ -3,9 +3,10 @@
 //  Sensor HC-SR04 -> modelo de classificação -> ação no carrinho
 //
 //  Classes do modelo e ações:
-//    longe -> anda em velocidade normal  | RGB verde
-//    medio -> anda devagar               | RGB amarelo, LED piscando
-//    perto -> para, dá ré e gira         | RGB vermelho, LED + buzzer
+//    longe -> anda em velocidade normal  | LED verde
+//    medio -> anda devagar               | LED amarelo
+//    perto -> para, dá ré e gira         | LED vermelho
+//  Os LEDs funcionam como um semáforo; o LED RGB da placa repete a cor.
 //
 //  Botão BOOT (ou 'G' no Serial) liga/desliga os motores.
 //  Com os motores desligados o modelo continua rodando (LED/RGB/Serial).
@@ -22,8 +23,10 @@ const int IN4 = 7;
 const int TRIGGER = 15;
 const int ECHO    = 16;  // via divisor de tensão
 
-const int LED_ALERTA = 17;
-const int BUZZER     = 18;
+// LEDs do semáforo (cada um com resistor de 220 ohms até o GND)
+const int LED_VERMELHO = 17;
+const int LED_AMARELO  = 18;
+const int LED_VERDE    = 8;
 const int PINO_RGB   = 48;  // em placas v1.1 trocar para 38
 const int BOTAO_BOOT = 0;   // botão BOOT da placa
 
@@ -62,8 +65,6 @@ unsigned long inicioManobra = 0;
 bool motoresLigados = false;
 bool botaoAnterior = HIGH;
 unsigned long ultimaAmostra = 0;
-unsigned long ultimoPisca = 0;
-bool ledPisca = false;
 
 // ---------------------- MOTORES ----------------------
 // vE e vD: velocidade de cada lado (0 a 255). Negativo = para trás.
@@ -137,29 +138,16 @@ void escreverRGB(int r, int g, int b) {
 #endif
 }
 
+// Semáforo: acende só o LED da classe atual (o RGB da placa repete a cor)
 void atualizarSinais() {
+  digitalWrite(LED_VERDE,    classeAtual == LONGE);
+  digitalWrite(LED_AMARELO,  classeAtual == MEDIO);
+  digitalWrite(LED_VERMELHO, classeAtual == PERTO);
+
   switch (classeAtual) {
-    case LONGE:
-      escreverRGB(0, 40, 0);
-      digitalWrite(LED_ALERTA, LOW);
-      digitalWrite(BUZZER, LOW);
-      break;
-
-    case MEDIO:
-      escreverRGB(40, 25, 0);
-      if (millis() - ultimoPisca >= 250) {     // LED piscando
-        ultimoPisca = millis();
-        ledPisca = !ledPisca;
-        digitalWrite(LED_ALERTA, ledPisca);
-      }
-      digitalWrite(BUZZER, LOW);
-      break;
-
-    case PERTO:
-      escreverRGB(40, 0, 0);
-      digitalWrite(LED_ALERTA, HIGH);
-      digitalWrite(BUZZER, manobra != SEM_MANOBRA && motoresLigados);
-      break;
+    case LONGE: escreverRGB(0, 40, 0);  break;
+    case MEDIO: escreverRGB(40, 25, 0); break;
+    case PERTO: escreverRGB(40, 0, 0);  break;
   }
 }
 
@@ -237,12 +225,14 @@ void setup() {
   pinMode(IN3, OUTPUT); pinMode(IN4, OUTPUT);
   pinMode(TRIGGER, OUTPUT);
   pinMode(ECHO, INPUT);
-  pinMode(LED_ALERTA, OUTPUT);
-  pinMode(BUZZER, OUTPUT);
+  pinMode(LED_VERMELHO, OUTPUT);
+  pinMode(LED_AMARELO, OUTPUT);
+  pinMode(LED_VERDE, OUTPUT);
   pinMode(BOTAO_BOOT, INPUT_PULLUP);
   digitalWrite(TRIGGER, LOW);
-  digitalWrite(LED_ALERTA, LOW);
-  digitalWrite(BUZZER, LOW);
+  digitalWrite(LED_VERMELHO, LOW);
+  digitalWrite(LED_AMARELO, LOW);
+  digitalWrite(LED_VERDE, LOW);
 
   motores(0, 0);
   escreverRGB(0, 0, 40);   // azul = iniciando
