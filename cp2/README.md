@@ -24,7 +24,7 @@ carrinho**.
 COLETAR → TREINAR → TESTAR → EMBARCAR → INFERIR → AGIR
 
 HC-SR04 → coleta (ESP32) → CSV → Edge Impulse → treinamento → teste
-        → Arduino library → ESP32-S3 → run_classifier() → motores / LED / buzzer
+        → Arduino library → ESP32-S3 → run_classifier() → motores / semáforo de LEDs
 ```
 
 ## 🔄 Evolução CP1 → CP2
@@ -167,11 +167,11 @@ A cada 100 ms o programa:
    pelo menos 60%);
 4. **age de acordo com a classe**:
 
-| Classe do modelo | Motores | LED RGB da placa | LED vermelho | Buzzer |
-| :--- | :--- | :--- | :--- | :--- |
-| `longe` | frente, velocidade normal | 🟢 verde | apagado | — |
-| `medio` | frente, **devagar** | 🟡 amarelo | piscando | — |
-| `perto` | **para, dá ré e gira à direita** | 🔴 vermelho | aceso | apita na manobra |
+| Classe do modelo | Motores | Semáforo de LEDs | LED RGB da placa |
+| :--- | :--- | :--- | :--- |
+| `longe` | frente, velocidade normal | 🟢 verde | verde |
+| `medio` | frente, **devagar** | 🟡 amarelo | amarelo |
+| `perto` | **para, dá ré e gira à direita** | 🔴 vermelho | vermelho |
 
 O movimento é decidido **somente pela classe produzida pelo modelo** — não
 há regra de distância no código de controle.
@@ -184,12 +184,14 @@ dist=42.0cm | longe=0.01 medio=0.97 perto=0.02 | classe=medio (0.97) | tempo=0ms
 
 ### Como usar
 
-1. Ligar as baterias: o LED RGB fica azul e o modelo começa a classificar
-   (motores desligados).
-2. Apertar o botão **BOOT** da placa (ou enviar `G` pelo Serial) para ligar
-   os motores; apertar de novo para desligar.
-3. Com os motores desligados o modelo continua rodando, o que permite
-   observar as classes no LED RGB e no Serial Monitor (115200).
+1. Ligar as baterias: o modelo começa a classificar imediatamente (semáforo
+   aceso) e o LED RGB da placa pisca em azul durante **10 segundos**.
+2. Após os 10 segundos os motores ligam sozinhos e o carrinho passa a andar
+   conforme a classe do modelo.
+3. O botão **BOOT** da placa (ou `G` pelo Serial) liga/desliga os motores a
+   qualquer momento — apertado durante a contagem, cancela a partida.
+4. Com os motores desligados o modelo continua rodando, o que permite
+   observar as classes nos LEDs e no Serial Monitor (115200).
 
 Configuração da Arduino IDE: placa **ESP32S3 Dev Module Octal (WROOM2)**,
 **USB CDC On Boot: Disabled**, cabo na porta **UART**.

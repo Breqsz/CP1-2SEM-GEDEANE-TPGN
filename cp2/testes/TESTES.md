@@ -47,5 +47,8 @@ Sketch: [`../src/tinyml_carrinho/tinyml_carrinho.ino`](../src/tinyml_carrinho/ti
 | :--- | :--- |
 | Rodas suspensas: longe → normal, medio → devagar, perto → para, ré e gira | ✅ |
 | Velocidade alta demais no primeiro teste | Ajustada: normal 200 → 160, devagar 140 → 125, manobra 190 → 170; ré 600 ms e giro 550 ms |
+| Ainda rápido demais no chão, na bateria | Ajustada de novo: normal 160 → 110, devagar 125 → 90, manobra 170 → 125; ré 850 ms e giro 750 ms (tempos maiores para compensar a velocidade menor) |
+| Ainda rápido e giro de ~360° (voltava para o obstáculo) | Ajustada: normal 110 → 85, devagar 90 → 70, manobra 125 → 100; ré 700 ms e giro 750 → 250 ms (~90°) |
+| Amarelo ainda rápido | Ajustada: devagar 70 → 55 |
 | Carrinho no chão em direção a uma parede | _a registrar_ |
 | Funcionamento só na bateria | _a registrar_ |

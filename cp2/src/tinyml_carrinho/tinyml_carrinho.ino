@@ -3,11 +3,13 @@
 //  Sensor HC-SR04 -> modelo de classificação -> ação no carrinho
 //
 //  Classes do modelo e ações:
-//    longe -> anda em velocidade normal  | RGB verde
-//    medio -> anda devagar               | RGB amarelo, LED piscando
-//    perto -> para, dá ré e gira         | RGB vermelho, LED + buzzer
+//    longe -> anda em velocidade normal  | LED verde
+//    medio -> anda devagar               | LED amarelo
+//    perto -> para, dá ré e gira         | LED vermelho
+//  Os LEDs funcionam como um semáforo; o LED RGB da placa repete a cor.
 //
-//  Botão BOOT (ou 'G' no Serial) liga/desliga os motores.
+//  Ao ligar, os motores partem sozinhos após 10 s (RGB piscando azul).
+//  Botão BOOT (ou 'G' no Serial) liga/desliga os motores a qualquer momento.
 //  Com os motores desligados o modelo continua rodando (LED/RGB/Serial).
 //  Project-based Maker Lab - FIAP
 // =====================================================================
@@ -22,8 +24,10 @@ const int IN4 = 7;
 const int TRIGGER = 15;
 const int ECHO    = 16;  // via divisor de tensão
 
-const int LED_ALERTA = 17;
-const int BUZZER     = 18;
+// LEDs do semáforo (cada um com resistor de 220 ohms até o GND)
+const int LED_VERMELHO = 17;
+const int LED_AMARELO  = 18;
+const int LED_VERDE    = 8;
 const int PINO_RGB   = 48;  // em placas v1.1 trocar para 38
 const int BOTAO_BOOT = 0;   // botão BOOT da placa
 
@@ -34,18 +38,21 @@ const float DISTANCIA_MIN = 2.0;              // cm: limite inferior do sensor
 const int   JANELA_MEDIA  = 5;                // leituras na média móvel
 const unsigned long INTERVALO_AMOSTRA = 100;  // ms entre inferências
 
-// Velocidades (0 a 255). Abaixo de ~120 o motor não vence o atrito.
-const int VEL_NORMAL  = 160;
-const int VEL_DEVAGAR = 125;
-const int VEL_MANOBRA = 170;
+// Velocidades (0 a 255). Se o motor só zumbir sem girar, aumentar o valor.
+const int VEL_NORMAL  = 85;
+const int VEL_DEVAGAR = 55;
+const int VEL_MANOBRA = 100;
 
 // Manobra de desvio (classe "perto")
 const unsigned long TEMPO_PARADA = 200;  // ms parado antes da ré
-const unsigned long TEMPO_RE     = 600;  // ms de ré
-const unsigned long TEMPO_GIRO   = 550;  // ms girando para a direita
+const unsigned long TEMPO_RE     = 700;  // ms de ré
+const unsigned long TEMPO_GIRO   = 250;  // ms girando para a direita (~90°)
 
 // Confiança mínima para aceitar a classe; abaixo disso mantém a anterior
 const float CONFIANCA_MINIMA = 0.60;
+
+// Tempo entre ligar o carrinho e os motores partirem sozinhos
+const unsigned long ESPERA_PARTIDA = 10000;  // ms
 
 // ---------------------- ESTADO ----------------------
 enum Classe { LONGE = 0, MEDIO = 1, PERTO = 2 };
@@ -60,10 +67,10 @@ Manobra manobra = SEM_MANOBRA;
 unsigned long inicioManobra = 0;
 
 bool motoresLigados = false;
+bool aguardandoPartida = true;   // contagem de 10 s após ligar
+unsigned long inicioContagem = 0;
 bool botaoAnterior = HIGH;
 unsigned long ultimaAmostra = 0;
-unsigned long ultimoPisca = 0;
-bool ledPisca = false;
 
 // ---------------------- MOTORES ----------------------
 // vE e vD: velocidade de cada lado (0 a 255). Negativo = para trás.
@@ -137,29 +144,22 @@ void escreverRGB(int r, int g, int b) {
 #endif
 }
 
+// Semáforo: acende só o LED da classe atual (o RGB da placa repete a cor)
 void atualizarSinais() {
+  digitalWrite(LED_VERDE,    classeAtual == LONGE);
+  digitalWrite(LED_AMARELO,  classeAtual == MEDIO);
+  digitalWrite(LED_VERMELHO, classeAtual == PERTO);
+
+  if (aguardandoPartida) {                    // RGB piscando azul na contagem
+    if ((millis() / 250) % 2) escreverRGB(0, 0, 40);
+    else                      escreverRGB(0, 0, 0);
+    return;
+  }
+
   switch (classeAtual) {
-    case LONGE:
-      escreverRGB(0, 40, 0);
-      digitalWrite(LED_ALERTA, LOW);
-      digitalWrite(BUZZER, LOW);
-      break;
-
-    case MEDIO:
-      escreverRGB(40, 25, 0);
-      if (millis() - ultimoPisca >= 250) {     // LED piscando
-        ultimoPisca = millis();
-        ledPisca = !ledPisca;
-        digitalWrite(LED_ALERTA, ledPisca);
-      }
-      digitalWrite(BUZZER, LOW);
-      break;
-
-    case PERTO:
-      escreverRGB(40, 0, 0);
-      digitalWrite(LED_ALERTA, HIGH);
-      digitalWrite(BUZZER, manobra != SEM_MANOBRA && motoresLigados);
-      break;
+    case LONGE: escreverRGB(0, 40, 0);  break;
+    case MEDIO: escreverRGB(40, 25, 0); break;
+    case PERTO: escreverRGB(40, 0, 0);  break;
   }
 }
 
@@ -195,6 +195,7 @@ void agir() {
 }
 
 const char* nomeAcao() {
+  if (aguardandoPartida) return "AGUARDANDO PARTIDA";
   if (!motoresLigados) return "MOTORES DESLIGADOS";
   switch (manobra) {
     case PARANDO:  return "PARANDO";
@@ -211,6 +212,7 @@ const char* nomeAcao() {
 
 // ---------------------- COMANDOS ----------------------
 void alternarMotores() {
+  aguardandoPartida = false;                  // comando manual cancela a contagem
   motoresLigados = !motoresLigados;
   manobra = SEM_MANOBRA;
   motores(0, 0);
@@ -237,12 +239,14 @@ void setup() {
   pinMode(IN3, OUTPUT); pinMode(IN4, OUTPUT);
   pinMode(TRIGGER, OUTPUT);
   pinMode(ECHO, INPUT);
-  pinMode(LED_ALERTA, OUTPUT);
-  pinMode(BUZZER, OUTPUT);
+  pinMode(LED_VERMELHO, OUTPUT);
+  pinMode(LED_AMARELO, OUTPUT);
+  pinMode(LED_VERDE, OUTPUT);
   pinMode(BOTAO_BOOT, INPUT_PULLUP);
   digitalWrite(TRIGGER, LOW);
-  digitalWrite(LED_ALERTA, LOW);
-  digitalWrite(BUZZER, LOW);
+  digitalWrite(LED_VERMELHO, LOW);
+  digitalWrite(LED_AMARELO, LOW);
+  digitalWrite(LED_VERDE, LOW);
 
   motores(0, 0);
   escreverRGB(0, 0, 40);   // azul = iniciando
@@ -259,11 +263,18 @@ void setup() {
   Serial.println("# Carrinho TinyML - ESP32-S3");
   Serial.print("# Modelo: "); Serial.print(EI_CLASSIFIER_PROJECT_NAME);
   Serial.print(" | classes: "); Serial.println(EI_CLASSIFIER_LABEL_COUNT);
-  Serial.println("# Aperte BOOT (ou envie G) para ligar/desligar os motores");
+  Serial.println("# Motores partem em 10 s | BOOT (ou G) liga/desliga a qualquer momento");
+  inicioContagem = millis();
 }
 
 void loop() {
   verificarComandos();
+
+  if (aguardandoPartida && millis() - inicioContagem >= ESPERA_PARTIDA) {
+    aguardandoPartida = false;
+    motoresLigados = true;
+    Serial.println("# Motores LIGADOS (partida automatica)");
+  }
 
   if (millis() - ultimaAmostra >= INTERVALO_AMOSTRA) {
     ultimaAmostra = millis();
