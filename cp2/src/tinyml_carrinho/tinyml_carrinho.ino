@@ -8,7 +8,8 @@
 //    perto -> para, dá ré e gira         | LED vermelho
 //  Os LEDs funcionam como um semáforo; o LED RGB da placa repete a cor.
 //
-//  Botão BOOT (ou 'G' no Serial) liga/desliga os motores.
+//  Ao ligar, os motores partem sozinhos após 10 s (RGB piscando azul).
+//  Botão BOOT (ou 'G' no Serial) liga/desliga os motores a qualquer momento.
 //  Com os motores desligados o modelo continua rodando (LED/RGB/Serial).
 //  Project-based Maker Lab - FIAP
 // =====================================================================
@@ -50,6 +51,9 @@ const unsigned long TEMPO_GIRO   = 550;  // ms girando para a direita
 // Confiança mínima para aceitar a classe; abaixo disso mantém a anterior
 const float CONFIANCA_MINIMA = 0.60;
 
+// Tempo entre ligar o carrinho e os motores partirem sozinhos
+const unsigned long ESPERA_PARTIDA = 10000;  // ms
+
 // ---------------------- ESTADO ----------------------
 enum Classe { LONGE = 0, MEDIO = 1, PERTO = 2 };
 enum Manobra { SEM_MANOBRA, PARANDO, DANDO_RE, GIRANDO };
@@ -63,6 +67,8 @@ Manobra manobra = SEM_MANOBRA;
 unsigned long inicioManobra = 0;
 
 bool motoresLigados = false;
+bool aguardandoPartida = true;   // contagem de 10 s após ligar
+unsigned long inicioContagem = 0;
 bool botaoAnterior = HIGH;
 unsigned long ultimaAmostra = 0;
 
@@ -144,6 +150,12 @@ void atualizarSinais() {
   digitalWrite(LED_AMARELO,  classeAtual == MEDIO);
   digitalWrite(LED_VERMELHO, classeAtual == PERTO);
 
+  if (aguardandoPartida) {                    // RGB piscando azul na contagem
+    if ((millis() / 250) % 2) escreverRGB(0, 0, 40);
+    else                      escreverRGB(0, 0, 0);
+    return;
+  }
+
   switch (classeAtual) {
     case LONGE: escreverRGB(0, 40, 0);  break;
     case MEDIO: escreverRGB(40, 25, 0); break;
@@ -183,6 +195,7 @@ void agir() {
 }
 
 const char* nomeAcao() {
+  if (aguardandoPartida) return "AGUARDANDO PARTIDA";
   if (!motoresLigados) return "MOTORES DESLIGADOS";
   switch (manobra) {
     case PARANDO:  return "PARANDO";
@@ -199,6 +212,7 @@ const char* nomeAcao() {
 
 // ---------------------- COMANDOS ----------------------
 void alternarMotores() {
+  aguardandoPartida = false;                  // comando manual cancela a contagem
   motoresLigados = !motoresLigados;
   manobra = SEM_MANOBRA;
   motores(0, 0);
@@ -249,11 +263,18 @@ void setup() {
   Serial.println("# Carrinho TinyML - ESP32-S3");
   Serial.print("# Modelo: "); Serial.print(EI_CLASSIFIER_PROJECT_NAME);
   Serial.print(" | classes: "); Serial.println(EI_CLASSIFIER_LABEL_COUNT);
-  Serial.println("# Aperte BOOT (ou envie G) para ligar/desligar os motores");
+  Serial.println("# Motores partem em 10 s | BOOT (ou G) liga/desliga a qualquer momento");
+  inicioContagem = millis();
 }
 
 void loop() {
   verificarComandos();
+
+  if (aguardandoPartida && millis() - inicioContagem >= ESPERA_PARTIDA) {
+    aguardandoPartida = false;
+    motoresLigados = true;
+    Serial.println("# Motores LIGADOS (partida automatica)");
+  }
 
   if (millis() - ultimaAmostra >= INTERVALO_AMOSTRA) {
     ultimaAmostra = millis();
