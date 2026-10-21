@@ -18,7 +18,8 @@
 
 A evolução do carrinho para **TinyML** (coleta de dados com o HC-SR04,
 treinamento no Edge Impulse e modelo embarcado no ESP32-S3 controlando o
-carrinho) está na pasta **[`cp2/`](cp2/README.md)**. O conteúdo abaixo é a
+carrinho) está na pasta **[`cp2/`](cp2/README.md)**, com os vídeos da
+demonstração em [`cp2/evidencias/`](cp2/evidencias/). O conteúdo abaixo é a
 documentação original do Check Point 1.
 
 ## 🎯 Objetivo
