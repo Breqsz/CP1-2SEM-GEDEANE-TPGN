@@ -202,4 +202,8 @@ Configuração da Arduino IDE: placa **ESP32S3 Dev Module Octal (WROOM2)**,
 
 Registro dos testes: [`testes/TESTES.md`](testes/TESTES.md).
 
-Vídeo da demonstração: _a adicionar_.
+Vídeos da demonstração:
+
+![Texto alternativo da imagem](../evidencias/cp2-demonstracao-1.mp4)
+
+![Texto alternativo da imagem](../evidencias/cp2-demonstracao-2.mp4)
