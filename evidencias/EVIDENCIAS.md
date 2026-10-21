@@ -35,12 +35,6 @@ obstáculo e parando automaticamente (sem intervenção do usuário) ao chegar
 a ~20 cm de distância, evidenciando a trava de segurança implementada em
 `src/codigo.ino` (ver explicação em [`../src/README.md`](../src/README.md)).
 
-## Vídeos do Check Point 2 — TinyML
-
-![Texto alternativo da imagem](./cp2-demonstracao-1.mp4)
-
-![Texto alternativo da imagem](./cp2-demonstracao-2.mp4)
-
 
 ## 5. Instruções básicas de utilização
 

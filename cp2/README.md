@@ -49,6 +49,7 @@ originais do repositório. Tudo do CP2 está nesta pasta `cp2/`.
 | [`dados/`](dados/) | CSVs coletados pelo grupo (`coleta_*.csv` e `dataset.csv`) |
 | [`edge-impulse/`](edge-impulse/README.md) | Processo no Edge Impulse, prints e biblioteca exportada |
 | [`src/tinyml_carrinho/`](src/tinyml_carrinho/tinyml_carrinho.ino) | **Código final do carrinho** com o modelo embarcado |
+| [`evidencias/`](evidencias/) | Vídeos da demonstração do carrinho com TinyML |
 
 ---
 
@@ -202,8 +203,7 @@ Configuração da Arduino IDE: placa **ESP32S3 Dev Module Octal (WROOM2)**,
 
 Registro dos testes: [`testes/TESTES.md`](testes/TESTES.md).
 
-Vídeos da demonstração:
+Vídeos da demonstração (clique para assistir no GitHub):
 
-![Texto alternativo da imagem](../evidencias/cp2-demonstracao-1.mp4)
-
-![Texto alternativo da imagem](../evidencias/cp2-demonstracao-2.mp4)
+- [▶️ Demonstração 1](evidencias/cp2-demonstracao-1.mp4) — 23 s
+- [▶️ Demonstração 2](evidencias/cp2-demonstracao-2.mp4) — 1 min 9 s
